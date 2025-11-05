@@ -25,10 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Your apps
+    # Your local apps
+    'registrationapp',
     'rentalcars',
+    'carsapp',
 
-    # Third-party
+    # Third-party apps
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -41,7 +43,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # ---------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ required for static files on Render
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ for static files on Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,13 +55,12 @@ MIDDLEWARE = [
 # ---------------------------------------------------------
 # URLS / WSGI
 # ---------------------------------------------------------
-ROOT_URLCONF = 'your_project_name.urls'  # 🔁 change to your main project folder name
-WSGI_APPLICATION = 'your_project_name.wsgi.application'
+ROOT_URLCONF = 'registration.urls'  # ✅ main project folder name
+WSGI_APPLICATION = 'registration.wsgi.application'
 
 # ---------------------------------------------------------
 # DATABASE
 # ---------------------------------------------------------
-# Default local (MySQL)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -74,7 +75,7 @@ DATABASES = {
     }
 }
 
-# Render DB (if DATABASE_URL present)
+# Use DATABASE_URL on Render if available
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
@@ -95,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ✅ your global templates folder
+        'DIRS': [BASE_DIR / 'templates'],  # ✅ global templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,8 +113,8 @@ TEMPLATES = [
 # STATIC & MEDIA FILES
 # ---------------------------------------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # local static
-STATIC_ROOT = BASE_DIR / "staticfiles"    # for Render collectstatic
+STATICFILES_DIRS = [BASE_DIR / "static"]  # ✅ development static
+STATIC_ROOT = BASE_DIR / "staticfiles"    # ✅ used by collectstatic
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
