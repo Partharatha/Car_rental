@@ -8,7 +8,7 @@ import math
 @login_required(login_url='login')
 def Companylist(request):
     companies= Company.objects.all()
-    return render(request,'cars/Companylist.html',{'companies':companies})
+    return render(request,'cars/companylist.html',{'companies':companies})
 
 @login_required(login_url='login')
 def Company_details(request,id=0):
