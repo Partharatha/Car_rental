@@ -1,0 +1,149 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+  }
+
+  .jumbotron {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #3333ff;
+    box-shadow: 0 0 20px #3333ff, 0 0 30px #ff00cc inset;
+    margin-top: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 12px #00f0ff, 0 0 25px #ff00cc;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 8px 0;
+  }
+
+  hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff00cc, #00f0ff, transparent);
+    margin: 30px 0;
+  }
+
+  /* Product Card */
+  .card {
+    background: rgba(255, 255, 255, 0.07);
+    border: 2px solid #3333ff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #3333ff, 0 0 20px #ff00cc inset;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px #00f0ff, 0 0 40px #ff00cc;
+  }
+
+  .product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #fff;
+    padding: 15px;
+    border-bottom: 2px solid #3333ff;
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 15px;
+  }
+
+  .card-title a {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #00f0ff;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00f0ff;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+
+  .card-title a:hover {
+    color: #ff00cc;
+    text-shadow: 0 0 10px #ff00cc, 0 0 20px #00f0ff;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #ddd;
+  }
+
+  .card-text strong {
+    color: #ffea00;
+  }
+
+  .card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: linear-gradient(90deg, #ff00cc, #3333ff);
+    color: #fff;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px #ff00cc, 0 0 20px #3333ff;
+  }
+
+  .card a:hover {
+    background: linear-gradient(90deg, #00f0ff, #ff00cc);
+    box-shadow: 0 0 15px #00f0ff, 0 0 25px #ff00cc;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>🏢 {{ companies }} Company Details</h1>
+    <p><strong>NAME:</strong> {{ companies.name }}</p>
+    <p><strong>CEO:</strong> {{ companies.ceo }}</p>
+    <p><strong>Established:</strong> {{ companies.est_year }}</p>
+    <p><strong>Origin:</strong> {{ companies.orgin }}</p>
+    {% if companies.logo %}
+      <p><strong>Logo:</strong> <img src="{{ companies.logo.url }}" alt="Logo of {{ companies.name }}" style="height:60px"></p>
+    {% endif %}
+
+    <hr>
+    <h1>🚗 List of {{ companies.name }} Products</h1>
+
+    <div class="row">
+      {% for prod in companies.companies.all %}
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card">
+          {% if prod.pro_img %}
+            <img src="{{ prod.pro_img.url }}" alt="{{ prod.product_name }}" class="product-img">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'product' id=prod.id %}">{{ prod.product_name }}</a></h5>
+            <p class="card-text">🎨 Color: {{ prod.color }}</p>
+            <p class="card-text">⛽ Fuel: {{ prod.fuel_type }}</p>
+            <p class="card-text">🪑 Seats: {{ prod.seat_capacity }}</p>
+            <p class="card-text">🚘 Mileage: {{ prod.miliege }}</p>
+            <p class="card-text">⚙️ CC: {{ prod.cc }}</p>
+            <p class="card-text"><strong>Price:</strong> ₹ {{ prod.price }}</p>
+            <a href="{% url 'calcemi' id=prod.id %}">💰 EMI <i class="bi bi-bank"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

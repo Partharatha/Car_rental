@@ -1,0 +1,150 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+    }
+
+    /* Neon Card */
+    .enquiry-card {
+        background: rgba(15, 15, 15, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        padding: 30px;
+        max-width: 650px;
+        margin: 40px auto;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+        border: 2px solid rgba(0, 255, 255, 0.3);
+    }
+    .enquiry-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 35px rgba(0, 255, 255, 0.7);
+    }
+
+    /* Heading */
+    .enquiry-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 700;
+        font-size: 28px;
+        color: #00f0ff;
+        text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+    }
+
+    /* Labels */
+    .enquiry-card label {
+        font-weight: 500;
+        color: #ff00ff;
+        text-shadow: 0 0 5px #ff00ff;
+    }
+
+    /* Inputs & Textarea */
+    .enquiry-card input,
+    .enquiry-card select,
+    .enquiry-card textarea {
+        background: transparent;
+        color: #fff;
+        border: 2px solid #00f0ff;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+        padding: 10px;
+    }
+    .enquiry-card input:focus,
+    .enquiry-card select:focus,
+    .enquiry-card textarea:focus {
+        border-color: #ff00ff;
+        box-shadow: 0 0 15px #ff00ff, 0 0 25px #ff00ff;
+        outline: none;
+    }
+
+    /* Buttons */
+    .enquiry-card .btn {
+        border-radius: 12px;
+        padding: 12px 25px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .enquiry-card .btn-primary {
+        background: #00f0ff;
+        border: none;
+        color: #000;
+        box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+    }
+    .enquiry-card .btn-primary:hover {
+        background: #ff00ff;
+        color: #fff;
+        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+    }
+
+    .enquiry-card .btn-secondary {
+        background: #222;
+        color: #fff;
+        border: 2px solid #ff00ff;
+        box-shadow: 0 0 10px #ff00ff;
+    }
+    .enquiry-card .btn-secondary:hover {
+        background: #ff00ff;
+        color: #fff;
+        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+    }
+
+    /* Messages */
+    .custom-alert {
+        border-radius: 12px;
+        font-weight: 600;
+        background: rgba(0, 255, 150, 0.2);
+        border: 2px solid #00ff99;
+        color: #00ff99;
+        text-shadow: 0 0 10px #00ff99;
+        box-shadow: 0 0 15px #00ff99;
+    }
+</style>
+
+<div class="enquiry-card">
+    <h2>Enquiry Form for {{ prod.product_name }}</h2>
+  
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+            <label>User Name</label>
+            <input type="text" value="{{ request.user.username }}" class="form-control" disabled>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Email</label>
+            <input type="text" value="{{ request.user.email }}" class="form-control" disabled>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Phone</label>
+            {{ form.phone }}
+        </div>
+
+        <div class="form-group mb-4">
+            <label>Concern</label>
+            {{ form.consern }}
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Enquiry</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        </div>
+    </form>
+</div>
+
+{% if messages %}
+    <div class="mt-3 text-center">
+        {% for message in messages %}
+            <div class="alert custom-alert d-inline-block px-4 py-2">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

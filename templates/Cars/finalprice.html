@@ -1,0 +1,86 @@
+{% extends 'cars/base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+  }
+
+  .price-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 50px;
+    box-shadow: 0 0 15px #3333ff, 0 0 25px #ff00cc inset;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .price-card:hover {
+    box-shadow: 0 0 25px #00f0ff, 0 0 40px #ff00cc inset;
+    transform: translateY(-5px);
+  }
+
+  .price-card h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00f0ff;
+    text-shadow: 0 0 12px #00f0ff, 0 0 25px #ff00cc;
+  }
+
+  .price-breakdown p {
+    font-size: 1.1rem;
+    margin: 8px 0;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .price-breakdown b {
+    color: #ffea00;
+  }
+
+  .final-price {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    color: #00ff88;
+    text-shadow: 0 0 12px #00ff88, 0 0 20px #00f0ff;
+  }
+
+  hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff00cc, #00f0ff, transparent);
+    margin: 25px 0;
+  }
+</style>
+
+<div class="container">
+  <div class="price-card">
+    <h2>💰 Your Product Final Price</h2>
+    <hr>
+
+    <div class="price-breakdown">
+      <p><b>Product:</b> {{ prod.product_name }}</p>
+      <p><b>Ex Showroom Price:</b> ₹ {{ ex_showroom|floatformat:2 }}</p>
+      <p><b>Road Tax (8%):</b> ₹ {{ road_tax|floatformat:2 }}</p>
+      <p><b>RTO Charges (5%):</b> ₹ {{ rto_charges|floatformat:2 }}</p>
+      <p><b>GST (18%):</b> ₹ {{ gst|floatformat:2 }}</p>
+      <p><b>Insurance (3.5%):</b> ₹ {{ insurance|floatformat:2 }}</p>
+      <p><b>Miscellaneous (25%):</b> ₹ {{ miscellaneous|floatformat:2 }}</p>
+    </div>
+
+    <hr>
+    <div class="final-price">
+      Tentative Final Price: ₹ {{ final_price|floatformat:2 }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

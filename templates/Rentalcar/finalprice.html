@@ -1,0 +1,24 @@
+{% extends "cars/base.html" %}
+
+{% block content %}
+
+<div class="container">
+     <h3> Car name : {{ car.car_name }}</h3>
+    <p><strong>Km per day :</strong> 300 km</p>
+    <p><strong>Price per km</strong> 11 Rs.</p>
+    <p><strong>Miliege :</strong> 14 kmpl</p>
+    <p><strong>Total km in first ODO meter : </strong> 8562</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <p><strong> No. of Days:</strong>
+            <input type="number" name="days" value="{{ days|default:'' }}" required>
+        </p>
+        <p><strong>Km driven till now :</strong>
+            <input type="number" name="expected_km" value="{{ expected_km|default:'' }}" required>
+        </p>
+    </form>    
+</div>
+
+
+{% endblock content %}

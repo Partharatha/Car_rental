@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            {% if registered %}
+            <div class="card card-body">
+                <h2>Thankyou for registration</h2>
+                <p>Please proced to <a href="#">Login</a></p>
+            </div>
+            {% else %}
+            <h1 style="text-align: center; color: blue; font-weight: bold; text-decoration: underline;">Registration
+                Page
+            </h1>
+            <!-- {{ form.as_p }}
+            {{ form1.as_p}} -->
+            <form style="border: 3px solid black; padding: 20px; border-radius: 10px;" enctype="multipart/form-data"
+                method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.username | as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.email| as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.password | as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form1.phone | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form1.door_no | as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form1.street | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form1.landmark | as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form1.city | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form1.state | as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form1.zip_code | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form1.userpic | as_crispy_field }}
+                    </div>
+                </div>
+                {{ form1.captcha }}
+                <input type="submit" value="REGISTER">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

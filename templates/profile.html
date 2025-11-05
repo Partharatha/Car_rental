@@ -1,0 +1,26 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Profile : {{ user.username }}</h3>
+                <h3>Email :{{ user.email }}</h3>
+                <h3>Phone No : {{ user.userregistration.phone }}</h3>
+                <h3>Street : {{ user.userregistration.street }}</h3>
+                <h3>City : {{ user.userregistration.city }}</h3>
+                <h3>State : {{ user.userregistration.state }}</h3>
+                <a href="{% url 'update' %}" class="btn btn-outline-primary">Edit Profile</a>
+            </div>
+            <div class="col-md-6">
+                <p>User Profile pic</p>
+                {% if user.userregistration.userpic %}
+                <img src="{{ user.userregistration.userpic.url }}" alt="" height="300px" width="500px">
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
